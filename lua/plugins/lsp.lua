@@ -1,27 +1,43 @@
 return {
   {
     'williamboman/mason.nvim',
+    cmd = { 'Mason' },
+    -- lazy = true,
     opts = {},
   },
   {
     'WhoIsSethDaniel/mason-tool-installer.nvim',
+    dependencies = {
+      'williamboman/mason.nvim',
+    },
+    cmd = { 'MasonToolsUpdate' },
+    -- lazy = true,
     opts = {
-      auto_update = false,
+      run_on_start = true,
+      auto_update = true,
       ensure_installed = {
         'stylua',
         'prettierd',
         'eslint_d',
       },
     },
+    keys = {
+      { '<leader>mtu', '<cmd>MasonToolsUpdate<CR>', desc = 'Mason Tool Update' },
+    },
   },
   {
     'williamboman/mason-lspconfig.nvim',
+    lazy = true,
     opts = {
       ensure_installed = { 'lua_ls', 'tsserver' },
     },
   },
   {
     'neovim/nvim-lspconfig',
+    event = 'BufRead',
+    dependencies = {
+      'williamboman/mason-lspconfig.nvim',
+    },
     config = function()
       local lsp = require 'lspconfig'
       local capabilities = require('cmp_nvim_lsp').default_capabilities()
