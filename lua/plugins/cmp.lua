@@ -1,12 +1,4 @@
 return {
-  -- {
-  --   'L3MON4D3/LuaSnip',
-  --   lazy = true,
-  --   dependencies = {
-  --     'saadparwaiz1/cmp_luasnip',
-  --     'rafamadriz/friendly-snippets',
-  --   },
-  -- },
   {
     'hrsh7th/nvim-cmp',
     event = 'InsertEnter',
@@ -22,13 +14,19 @@ return {
         'hrsh7th/cmp-nvim-lua',
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
+        'onsails/lspkind.nvim', -- vs-code like pictograms
       },
     },
     config = function()
       local cmp = require 'cmp'
+      local lspkind = require 'lspkind'
+
       require('luasnip.loaders.from_vscode').lazy_load()
 
       cmp.setup {
+        completion = {
+          completeopt = 'menu,menuone,preview,noselect',
+        },
         snippet = {
           -- REQUIRED - you must specify a snippet engine
           expand = function(args)
@@ -65,12 +63,19 @@ return {
             end
           end, { 'i', 's' }),
         },
-        sources = cmp.config.sources({
+        sources = cmp.config.sources {
           { name = 'nvim_lsp' },
           { name = 'luasnip' }, -- For luasnip users.
-        }, {
-          { name = 'buffer' },
-        }),
+          { name = 'buffer' }, -- For luasnip users.
+          { name = 'path' }, -- For luasnip users.
+        },
+        -- configure lspkind for vs-code like pictograms in completion menu
+        formatting = {
+          format = lspkind.cmp_format {
+            maxwidth = 50,
+            ellipsis_char = '...',
+          },
+        },
       }
     end,
   },

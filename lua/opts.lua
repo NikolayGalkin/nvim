@@ -11,5 +11,8 @@ vim.wo.number = true
 vim.wo.relativenumber = true
 
 vim.opt.termguicolors = true
-vim.opt.clipboard = 'unnamedplus'
+vim.opt.clipboard:append 'unnamedplus'
 vim.opt_local.conceallevel = 2
+
+vim.opt.cursorline = true
+vim.opt.swapfile = false

@@ -1,6 +1,6 @@
 return {
   'nvim-treesitter/nvim-treesitter',
-  event = 'BufRead',
+  event = { 'BufReadPre', 'BufNewFile' },
   build = ':TSUpdate',
   opts = {
     ensure_installed = { 'lua', 'toml', 'markdown', 'markdown_inline' },

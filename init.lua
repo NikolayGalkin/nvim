@@ -14,4 +14,15 @@ vim.opt.rtp:prepend(lazypath)
 
 require 'opts'
 require 'keymaps'
-require('lazy').setup 'plugins'
+require('lazy').setup('plugins', {
+  install = {
+    colorscheme = { 'nightfly' },
+  },
+  checker = {
+    enabled = true,
+    notify = false,
+  },
+  change_detection = {
+    notify = false,
+  },
+})

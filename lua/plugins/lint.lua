@@ -1,34 +1,25 @@
 return {
   {
-    'nvimtools/none-ls.nvim',
-    event = 'BufRead',
+    'mfussenegger/nvim-lint',
+    event = { 'BufReadPre', 'BufNewFile' },
     config = function()
-      local null_ls = require 'null-ls'
-      null_ls.setup {
-        sources = {
-          null_ls.builtins.formatting.stylua,
-          null_ls.builtins.formatting.prettierd,
-          -- null_ls.builtins.diagnostics.eslint_d,
-        },
+      local lint = require 'lint'
+
+      lint.linters_by_ft = {
+        -- markdown = { 'vale' },
       }
 
-      vim.keymap.set('n', '<leader>gf', vim.lsp.buf.format, {})
-    end,
-  },
-  {
-    'mfussenegger/nvim-lint',
-    config = function()
-      require('lint').linters_by_ft = {
-        markdown = { 'markdownlint' },
-      }
-      vim.api.nvim_create_autocmd({ 'BufWritePost' }, {
+      local lint_augroup = vim.api.nvim_create_augroup('lint', { clear = true })
+      vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWritePost', 'InsertLeave' }, {
+        group = lint_augroup,
         callback = function()
-          require('lint').try_lint()
+          lint.try_lint()
         end,
       })
+
+      vim.keymap.set('n', '<leader>l', lint.try_lint, { desc = 'Trigger linting for current file' })
     end,
   },
 }
 
 -- TODO: move to nvim-lint
--- TODO: move to conform
