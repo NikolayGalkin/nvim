@@ -12,7 +12,9 @@ vim.wo.relativenumber = true
 
 vim.opt.termguicolors = true
 vim.opt.clipboard:append 'unnamedplus'
-vim.opt_local.conceallevel = 2
+vim.opt.conceallevel = 2
 
 vim.opt.cursorline = true
 vim.opt.swapfile = false
+
+vim.opt.colorcolumn = { 120 }

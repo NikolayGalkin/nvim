@@ -21,5 +21,3 @@ return {
     end,
   },
 }
-
--- TODO: move to nvim-lint

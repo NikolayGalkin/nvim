@@ -1,7 +1,10 @@
 return {
   'epwalsh/obsidian.nvim',
-  lazy = true,
-  ft = 'markdown',
+  -- ft = 'markdown',
+  -- lazy = true,
+  event = {
+    'BufReadPre ' .. vim.fn.expand '~' .. '/Documents/obsidian/**.md',
+  },
   dependencies = {
     'nvim-lua/plenary.nvim',
   },
@@ -12,17 +15,18 @@ return {
       time_format = '%H:%M',
       substitutions = {},
     },
+    completion = {
+      nvim_cmp = true,
+      min_chars = 2,
+    },
     workspaces = {
       {
         name = 'work',
         path = '~/Documents/obsidian',
       },
     },
+    ui = {
+      enable = true,
+    },
   },
-  config = function(_, opts)
-    vim.opt_local.conceallevel = 2
-    require('obsidian').setup(opts)
-  end,
 }
-
--- FIX:: obsidian is not working after opening a file on second time
