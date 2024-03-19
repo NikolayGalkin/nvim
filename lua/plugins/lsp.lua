@@ -23,6 +23,7 @@ return {
     },
     keys = {
       { '<leader>mtu', '<cmd>MasonToolsUpdate<CR>', desc = 'Mason Tool Update' },
+      { 'hrsh7th/cmp-nvim-lsp' },
     },
   },
   {
@@ -61,3 +62,5 @@ return {
     end,
   },
 }
+
+-- TODO: format on save
