@@ -31,19 +31,4 @@ return {
       { '<leader>fb', '<cmd>Telescope file_browser<CR>', desc = 'Telescope File browser' },
     },
   },
-  --   {
-  --     'nvim-telescope/telescope-file-browser.nvim',
-  --     dependencies = {
-  --       'nvim-telescope/telescope.nvim',
-  --       'nvim-lua/plenary.nvim',
-  --     },
-  --     config = function()
-  --       local telescope = require 'telescope'
-  --
-  --       telescope.load_extension 'file_browser'
-  --     end,
-  --     keys = {
-  --       { '<leader>fb', '<cmd>Telescope file_browser<CR>', desc = 'Telescope File browser' },
-  --     },
-  --   },
 }
