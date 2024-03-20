@@ -20,4 +20,13 @@ return {
       vim.keymap.set('n', '<leader>gt', ':Gitsigns toggle_current_line_blame<CR>', {})
     end,
   },
+  {
+    'wintermute-cell/gitignore.nvim',
+    dependencies = {
+      'nvim-telescope/telescope.nvim',
+    },
+    keys = {
+      { '<leader>gi', '<cmd>Gitignore<cr>', desc = 'Generate Gitignore file' },
+    },
+  },
 }
