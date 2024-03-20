@@ -6,7 +6,7 @@ return {
     'windwp/nvim-ts-autotag',
   },
   opts = {
-    ensure_installed = { 'lua', 'toml', 'markdown', 'markdown_inline', 'vim', 'gitignore' },
+    ensure_installed = { 'lua', 'toml', 'markdown', 'markdown_inline', 'vim', 'gitignore', 'bash', 'regex' },
     hightlight = { enable = true },
     indent = { enble = true },
   },

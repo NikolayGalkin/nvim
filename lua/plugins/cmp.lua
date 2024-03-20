@@ -1,7 +1,7 @@
 return {
   {
     'hrsh7th/nvim-cmp',
-    event = 'InsertEnter',
+    event = { 'InsertEnter' },
     dependencies = {
       {
         'L3MON4D3/LuaSnip',
@@ -15,6 +15,7 @@ return {
         'hrsh7th/cmp-buffer',
         'hrsh7th/cmp-path',
         'onsails/lspkind.nvim', -- vs-code like pictograms
+        'hrsh7th/cmp-nvim-lua',
       },
     },
     config = function()
@@ -68,6 +69,7 @@ return {
           { name = 'luasnip' }, -- For luasnip users.
           { name = 'buffer' }, -- For luasnip users.
           { name = 'path' }, -- For luasnip users.
+          { name = 'nvim_lua' },
         },
         -- configure lspkind for vs-code like pictograms in completion menu
         formatting = {

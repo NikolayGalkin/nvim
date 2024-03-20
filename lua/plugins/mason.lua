@@ -1,6 +1,7 @@
 return {
   'williamboman/mason.nvim',
-  event = 'VeryLazy',
+  cmd = { 'Mason' },
+  lazy = true,
   dependencies = {
     'williamboman/mason-lspconfig.nvim',
     'WhoIsSethDaniel/mason-tool-installer.nvim',
@@ -30,6 +31,7 @@ return {
         'tailwindcss',
         'lua_ls',
         'emmet_ls',
+        'marksman',
       },
       -- auto-install configured servers (with lspconfig)
       -- automatic_installation = true, -- not the same as ensure_installed

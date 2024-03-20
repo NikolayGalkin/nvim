@@ -1,7 +1,5 @@
 return {
   'epwalsh/obsidian.nvim',
-  -- ft = 'markdown',
-  -- lazy = true,
   event = {
     'BufReadPre ' .. vim.fn.expand '~' .. '/Documents/obsidian/**.md',
   },
@@ -15,9 +13,15 @@ return {
       time_format = '%H:%M',
       substitutions = {},
     },
+    daily_notes = {
+      folder = '_dailies',
+      date_format = '%Y-%m-%d',
+      alias_format = '%B %-d, %Y',
+      template = nil,
+    },
     completion = {
       nvim_cmp = true,
-      min_chars = 2,
+      min_chars = 1,
     },
     workspaces = {
       {
@@ -28,5 +32,17 @@ return {
     ui = {
       enable = true,
     },
+    picker = {
+      name = 'telescope.nvim',
+    },
+    ---@param url string
+    follow_url_func = function(url)
+      vim.fn.jobstart { 'open', url } -- Mac OS
+    end,
+  },
+  keys = {
+    { '<leader>ol', '<cmd>ObsidianDailies<cr>', desc = 'Obsidian Dailies' },
+    { '<leader>od', '<cmd>ObsidianToday<cr>', desc = 'Obsidian Today' },
+    { '<leader>of', '<cmd>ObsidianFollowLink<cr>', desc = 'Obsidian Today' },
   },
 }
