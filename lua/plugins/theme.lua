@@ -4,6 +4,18 @@ return {
   lazy = false,
   priority = 1000,
   config = function()
+    require('catppuccin').setup {
+      transparent_background = true,
+      -- integrations = {
+      --   notify = false,
+      -- },
+      custom_highlights = function(colors)
+        return {
+          NvimTreeFolderArrowClosed = { fg = colors.blue },
+          NvimTreeFolderArrowOpen = { fg = colors.blue },
+        }
+      end,
+    }
     vim.cmd.colorscheme 'catppuccin'
   end,
 }

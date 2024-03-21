@@ -2,6 +2,10 @@ return {
   {
     'folke/noice.nvim',
     event = 'VeryLazy',
+    dependencies = {
+      'MunifTanjim/nui.nvim',
+      'rcarriga/nvim-notify',
+    },
     opts = {
       lsp = {
         signature = {
@@ -18,10 +22,12 @@ return {
         },
       },
     },
-    dependencies = {
-      'MunifTanjim/nui.nvim',
-      'rcarriga/nvim-notify',
-    },
+    config = function(_, opts)
+      require('noice').setup(opts)
+      require('notify').setup {
+        background_colour = '#000000',
+      }
+    end,
   },
   {
     'nvim-lualine/lualine.nvim',

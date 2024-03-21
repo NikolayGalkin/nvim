@@ -6,40 +6,37 @@ return {
     'windwp/nvim-ts-autotag',
     'maxmellon/vim-jsx-pretty',
   },
-  opts = function(_, opts)
-    vim.list_extend(opts, {
-      ensure_installed = {
-        'css',
-        'scss',
-        'gitcommit',
-        'gitignore',
-        'http',
-        'lua',
-        'toml',
-        'markdown',
-        'markdown_inline',
-        'vim',
-        'bash',
-        'regex',
-        'typescript',
-        'javascript',
-        'tsx',
-        'kdl',
-      },
-      hightlight = { enable = true },
-      indent = { enble = true },
-    })
-  end,
+  opts = {
+    ensure_installed = {
+      'css',
+      'scss',
+      'gitcommit',
+      'gitignore',
+      'http',
+      'lua',
+      'toml',
+      'markdown',
+      'markdown_inline',
+      'vim',
+      'bash',
+      'regex',
+      'typescript',
+      'javascript',
+      'tsx',
+      'kdl',
+    },
+    hightlight = { enable = true },
+    indent = { enble = true },
+
+    autotag = {
+      enable = true,
+      enable_rename = true,
+      enable_close = true,
+      enable_close_on_slash = true,
+    },
+  },
   config = function(_, opts)
-    require('nvim-treesitter').setup(opts)
-    require('nvim-treesitter.configs').setup {
-      autotag = {
-        enable = true,
-        enable_rename = true,
-        enable_close = true,
-        enable_close_on_slash = true,
-        -- filetypes = { 'html', 'xml', 'typescript', 'javascript', 'tsx' },
-      },
-    }
+    -- require('nvim-treesitter').setup(opts)
+    require('nvim-treesitter.configs').setup(opts)
   end,
 }
