@@ -1,9 +1,9 @@
-vim.keymap.set('n', '<leader>q', ':qa<CR>', {})
--- vim.keymap.set('n', '<leader>x', ':q<CR>', {})
-vim.keymap.set('n', '<leader>w', ':w<CR>', {})
+vim.keymap.set('n', '<leader>q', ':qa<cr>', {})
+-- vim.keymap.set('n', '<leader>x', ':q<cr>', {})
+vim.keymap.set('n', '<leader>w', ':w<cr>', {})
 
 -- Navigate vim panes better
-vim.keymap.set('n', '<c-k>', ':wincmd k<CR>')
-vim.keymap.set('n', '<c-j>', ':wincmd j<CR>')
-vim.keymap.set('n', '<c-h>', ':wincmd h<CR>')
-vim.keymap.set('n', '<c-l>', ':wincmd l<CR>')
+vim.keymap.set('n', '<c-k>', ':wincmd k<cr>')
+vim.keymap.set('n', '<c-j>', ':wincmd j<cr>')
+vim.keymap.set('n', '<c-h>', ':wincmd h<cr>')
+vim.keymap.set('n', '<c-l>', ':wincmd l<cr>')

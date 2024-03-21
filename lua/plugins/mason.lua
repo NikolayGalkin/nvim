@@ -43,9 +43,10 @@ return {
         'stylua', -- lua formatter
         'eslint_d', -- js linter
         'markdownlint',
+        'selene',
       },
       keys = {
-        { '<leader>mtu', '<cmd>MasonToolsUpdate<CR>', desc = 'Mason Tool Update' },
+        { '<leader>mtu', '<cmd>MasonToolsUpdate<cr>', desc = 'Mason Tool Update' },
       },
     }
   end,

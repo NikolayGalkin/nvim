@@ -6,23 +6,29 @@ return {
     'windwp/nvim-ts-autotag',
     'maxmellon/vim-jsx-pretty',
   },
-  opts = {
-    ensure_installed = {
-      'lua',
-      'toml',
-      'markdown',
-      'markdown_inline',
-      'vim',
-      'gitignore',
-      'bash',
-      'regex',
-      'typescript',
-      'javascript',
-      'tsx',
-    },
-    hightlight = { enable = true },
-    indent = { enble = true },
-  },
+  opts = function(_, opts)
+    vim.list_extend(opts, {
+      ensure_installed = {
+        'css',
+        'scss',
+        'gitcommit',
+        'gitignore',
+        'http',
+        'lua',
+        'toml',
+        'markdown',
+        'markdown_inline',
+        'vim',
+        'bash',
+        'regex',
+        'typescript',
+        'javascript',
+        'tsx',
+      },
+      hightlight = { enable = true },
+      indent = { enble = true },
+    })
+  end,
   config = function(_, opts)
     require('nvim-treesitter').setup(opts)
     require('nvim-treesitter.configs').setup {

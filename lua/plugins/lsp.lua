@@ -1,20 +1,20 @@
 local lsp_keymaps = function(bufnr)
   local opts = { noremap = true, silent = true }
   local keymap = vim.api.nvim_buf_set_keymap
-  keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<CR>', opts)
-  keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<CR>', opts)
-  keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<CR>', opts)
-  keymap(bufnr, 'n', 'gI', '<cmd>lua vim.lsp.buf.implementation()<CR>', opts)
-  keymap(bufnr, 'n', 'gr', '<cmd>Telescope lsp_references<CR>', opts)
-  keymap(bufnr, 'n', 'gl', '<cmd>lua vim.diagnostic.open_float()<CR>', opts)
+  keymap(bufnr, 'n', 'gD', '<cmd>lua vim.lsp.buf.declaration()<cr>', opts)
+  keymap(bufnr, 'n', 'gd', '<cmd>lua vim.lsp.buf.definition()<cr>', opts)
+  keymap(bufnr, 'n', 'K', '<cmd>lua vim.lsp.buf.hover()<cr>', opts)
+  keymap(bufnr, 'n', 'gI', '<cmd>lua vim.lsp.buf.implementation()<cr>', opts)
+  keymap(bufnr, 'n', 'gr', '<cmd>Telescope lsp_references<cr>', opts)
+  keymap(bufnr, 'n', 'gl', '<cmd>lua vim.diagnostic.open_float()<cr>', opts)
   keymap(bufnr, 'n', '<leader>li', '<cmd>LspInfo<cr>', opts)
   keymap(bufnr, 'n', '<leader>lI', '<cmd>LspInstallInfo<cr>', opts)
   keymap(bufnr, 'n', '<leader>ca', '<cmd>lua vim.lsp.buf.code_action()<cr>', opts)
   -- keymap(bufnr, 'n', '<leader>lj', '<cmd>lua vim.diagnostic.goto_next({buffer=0})<cr>', opts)
   -- keymap(bufnr, 'n', '<leader>lk', '<cmd>lua vim.diagnostic.goto_prev({buffer=0})<cr>', opts)
   -- keymap(bufnr, 'n', '<leader>lr', '<cmd>lua vim.lsp.buf.rename()<cr>', opts)
-  -- keymap(bufnr, 'n', '<leader>ls', '<cmd>lua vim.lsp.buf.signature_help()<CR>', opts)
-  -- keymap(bufnr, 'n', '<leader>lq', '<cmd>lua vim.diagnostic.setloclist()<CR>', opts)
+  keymap(bufnr, 'n', '<leader>ls', '<cmd>lua vim.lsp.buf.signature_help()<cr>', opts)
+  -- keymap(bufnr, 'n', '<leader>lq', '<cmd>lua vim.diagnostic.setloclist()<cr>', opts)
 end
 
 local on_attach = function(client, bufnr)
@@ -42,101 +42,102 @@ local get_capabilities = function()
 end
 
 return {
-  {
-    'neovim/nvim-lspconfig',
-    event = { 'BufReadPre', 'BufNewFile' },
-    dependencies = {
-      'hrsh7th/cmp-nvim-lsp',
-      { 'antosha417/nvim-lsp-file-operations', config = true },
-      'RRethy/vim-illuminate',
-      'williamboman/mason.nvim',
-    },
-    config = function()
-      local lsp = require 'lspconfig'
+  'neovim/nvim-lspconfig',
+  event = {
+    'BufReadPre',
+    'BufNewFile',
+  },
+  dependencies = {
+    'hrsh7th/cmp-nvim-lsp',
+    'antosha417/nvim-lsp-file-operations',
+    'RRethy/vim-illuminate',
+    'williamboman/mason.nvim',
+  },
+  config = function()
+    local lsp = require 'lspconfig'
 
-      local signs = { Error = ' ', Warn = ' ', Hint = '󰠠 ', Info = ' ' }
-      for type, icon in pairs(signs) do
-        local hl = 'DiagnosticSign' .. type
-        vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
-      end
+    local signs = { Error = ' ', Warn = ' ', Hint = '󰠠 ', Info = ' ' }
+    for type, icon in pairs(signs) do
+      local hl = 'DiagnosticSign' .. type
+      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = '' })
+    end
 
-      local config = {
-        virtual_text = true, -- disable virtual text
-        signs = {
-          active = signs, -- show signs
-        },
-        update_in_insert = true,
-        underline = true,
-        severity_sort = true,
-        float = {
-          focusable = true,
-          style = 'minimal',
-          border = 'rounded',
-          source = 'always',
-          header = '',
-          prefix = '',
-        },
-      }
-      vim.diagnostic.config(config)
-
-      vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+    local config = {
+      virtual_text = true, -- disable virtual text
+      signs = {
+        active = signs, -- show signs
+      },
+      update_in_insert = true,
+      underline = true,
+      severity_sort = true,
+      float = {
+        focusable = true,
+        style = 'minimal',
         border = 'rounded',
-      })
+        source = 'always',
+        header = '',
+        prefix = '',
+      },
+    }
+    vim.diagnostic.config(config)
 
-      vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
-        border = 'rounded',
-      })
+    vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, {
+      border = 'rounded',
+    })
 
-      local capabilities = get_capabilities()
+    vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+      border = 'rounded',
+    })
 
-      lsp.html.setup {
-        capabilities = capabilities,
-        on_attach = on_attach,
-      }
+    local capabilities = get_capabilities()
 
-      lsp.tsserver.setup {
-        capabilities = capabilities,
-        on_attach = on_attach,
-      }
+    lsp.html.setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+    }
 
-      lsp.cssls.setup {
-        capabilities = capabilities,
-        on_attach = on_attach,
-      }
+    lsp.tsserver.setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+    }
 
-      lsp.tailwindcss.setup {
-        capabilities = capabilities,
-        on_attach = on_attach,
-      }
+    lsp.cssls.setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+    }
 
-      lsp.emmet_ls.setup {
-        capabilities = capabilities,
-        on_attach = on_attach,
-        filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'svelte' },
-      }
+    lsp.tailwindcss.setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+    }
 
-      lsp.marksman.setup {
-        capabilities = capabilities,
-        on_attach = on_attach,
-      }
+    lsp.emmet_ls.setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less', 'svelte' },
+    }
 
-      lsp.lua_ls.setup {
-        capabilities = capabilities,
-        on_attach = on_attach,
-        settings = { -- custom settings for lua
-          Lua = {
-            diagnostics = {
-              globals = { 'vim' },
-            },
-            workspace = {
-              library = {
-                [vim.fn.expand '$VIMRUNTIME/lua'] = true,
-                [vim.fn.stdpath 'config' .. '/lua'] = true,
-              },
+    lsp.marksman.setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+    }
+
+    lsp.lua_ls.setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = { -- custom settings for lua
+        Lua = {
+          diagnostics = {
+            globals = { 'vim' },
+          },
+          workspace = {
+            library = {
+              [vim.fn.expand '$VIMRUNTIME/lua'] = true,
+              [vim.fn.stdpath 'config' .. '/lua'] = true,
             },
           },
         },
-      }
-    end,
-  },
+      },
+    }
+  end,
 }
