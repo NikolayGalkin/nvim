@@ -52,6 +52,7 @@ return {
     'antosha417/nvim-lsp-file-operations',
     'RRethy/vim-illuminate',
     'williamboman/mason.nvim',
+    'b0o/schemastore.nvim',
     { 'ray-x/lsp_signature.nvim', opts = {} },
   },
   config = function()
@@ -110,6 +111,30 @@ return {
     lsp.tailwindcss.setup {
       capabilities = capabilities,
       on_attach = on_attach,
+    }
+
+    lsp.jsonls.setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = {
+        json = {
+          schemas = require('schemastore').json.schemas(),
+          validate = { enable = true },
+        },
+      },
+    }
+    lsp.yamlls.setup {
+      capabilities = capabilities,
+      on_attach = on_attach,
+      settings = {
+        yaml = {
+          schemaStore = {
+            enable = false,
+            url = '',
+          },
+          schemas = require('schemastore').yaml.schemas(),
+        },
+      },
     }
 
     lsp.emmet_ls.setup {

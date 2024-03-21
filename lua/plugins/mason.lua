@@ -28,6 +28,8 @@ return {
         'tsserver',
         'html',
         'cssls',
+        'jsonls',
+        'yamlls',
         'tailwindcss',
         'lua_ls',
         'emmet_ls',

@@ -24,6 +24,7 @@ return {
         'typescript',
         'javascript',
         'tsx',
+        'kdl',
       },
       hightlight = { enable = true },
       indent = { enble = true },
