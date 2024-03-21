@@ -4,20 +4,33 @@ return {
     event = { 'InsertEnter' },
     opts = {},
   },
+  -- FIX: too many conflicts in mapping. Need to think )
+  -- {
+  --   'folke/flash.nvim',
+  --   event = {
+  --     'BufReadPre',
+  --     'BufNewFile',
+  --   },
+  --   opts = {},
+  -- },
   {
-    'folke/flash.nvim',
-    event = {
-      'BufReadPre',
-      'BufNewFile',
+    'akinsho/toggleterm.nvim',
+    version = '*',
+    event = 'VeryLazy',
+    opts = {
+      hide_numbers = true,
+      -- these two options will force the terminal to always be in insert mode
+      start_in_insert = true,
+      persist_mode = true,
+      float_opts = {
+        border = 'curved',
+      },
     },
-    opts = {},
-    -- stylua: ignore
-    -- keys = {
-    --   { "s", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash" },
-    --   { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
-    --   { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
-    --   { "c", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
-    --   { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
-    -- },
+    config = function(_, opts)
+      require('toggleterm').setup(opts)
+      vim.keymap.set('t', '<esc>', [[<C-\><C-n>]])
+      vim.keymap.set('n', '<leader>tf', '<cmd>ToggleTerm direction=float<CR>')
+      vim.keymap.set('n', '<leader>tt', '<cmd>ToggleTerm<CR>')
+    end,
   },
 }

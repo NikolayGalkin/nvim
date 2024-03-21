@@ -52,6 +52,7 @@ return {
     'antosha417/nvim-lsp-file-operations',
     'RRethy/vim-illuminate',
     'williamboman/mason.nvim',
+    { 'ray-x/lsp_signature.nvim', opts = {} },
   },
   config = function()
     local lsp = require 'lspconfig'
