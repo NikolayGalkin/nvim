@@ -1,6 +1,6 @@
 return {
   'akinsho/bufferline.nvim',
-  event = 'VeryLazy',
+  event = 'BufEnter',
   dependencies = {
     'nvim-tree/nvim-web-devicons',
     'famiu/bufdelete.nvim',
@@ -38,6 +38,6 @@ return {
     end, {})
     vim.keymap.set('n', '<leader>x', function()
       require('bufdelete').bufdelete(0)
-    end, {})
+    end, { desc = 'Buffer Close' })
   end,
 }

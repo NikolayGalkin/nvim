@@ -8,7 +8,7 @@ return {
       vim.g.lazygit_use_neovim_remote = 0
     end,
     keys = {
-      { '<leader>gg', ':LazyGit<cr>', desc = 'Join Toggle' },
+      { '<leader>gg', ':LazyGit<cr>', desc = 'Lazy Git' },
     },
   },
   {

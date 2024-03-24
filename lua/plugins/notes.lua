@@ -6,6 +6,9 @@ return {
   dependencies = {
     'nvim-lua/plenary.nvim',
   },
+  init = function()
+    vim.opt.conceallevel = 2
+  end,
   opts = {
     templates = {
       subdir = 'templates',
@@ -43,6 +46,6 @@ return {
   keys = {
     { '<leader>ol', '<cmd>ObsidianDailies<cr>', desc = 'Obsidian Dailies' },
     { '<leader>od', '<cmd>ObsidianToday<cr>', desc = 'Obsidian Today' },
-    { '<leader>of', '<cmd>ObsidianFollowLink<cr>', desc = 'Obsidian Today' },
+    { '<leader>of', '<cmd>ObsidianFollowLink<cr>', desc = 'Obsidian Follow Link' },
   },
 }

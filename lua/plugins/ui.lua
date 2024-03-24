@@ -1,10 +1,22 @@
 return {
   {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    lazy = false,
+    priority = 1000,
+    config = function()
+      require('catppuccin').setup {
+        transparent_background = true,
+      }
+      vim.cmd.colorscheme 'catppuccin'
+    end,
+  },
+  {
     'folke/noice.nvim',
     event = 'VeryLazy',
     dependencies = {
       'MunifTanjim/nui.nvim',
-      'rcarriga/nvim-notify',
+      { 'rcarriga/nvim-notify', opts = { background_colour = '#000000' } },
     },
     opts = {
       lsp = {
@@ -22,12 +34,6 @@ return {
         },
       },
     },
-    config = function(_, opts)
-      require('noice').setup(opts)
-      require('notify').setup {
-        background_colour = '#000000',
-      }
-    end,
   },
   {
     'nvim-lualine/lualine.nvim',
@@ -35,12 +41,17 @@ return {
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = {
       options = {
-        theme = 'catppuccin',
+        theme = 'catppuccin-mocha',
       },
     },
   },
   {
-    'stevearc/dressing.nvim',
-    event = 'VeryLazy',
+    'karb94/neoscroll.nvim',
+    event = 'BufEnter',
+    config = true,
   },
+  -- {
+  --   'stevearc/dressing.nvim',
+  --   event = 'VeryLazy',
+  -- },
 }

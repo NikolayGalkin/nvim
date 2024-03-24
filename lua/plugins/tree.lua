@@ -31,7 +31,6 @@ return {
     },
   },
   init = function()
-    -- recommended settings from nvim-tree documentation
     vim.g.loaded_netrw = 1
     vim.g.loaded_netrwPlugin = 1
   end,
@@ -46,7 +45,7 @@ return {
     keymap.set('n', '<leader>er', '<cmd>NvimTreeRefresh<CR>', { desc = 'Refresh file explorer' }) -- refresh file explorer
   end,
   keys = {
-    { '<leader>ee', '<cmd>NvimTreeToggle<cr>' },
-    { '<leader>e', '<cmd>NvimTreeFocus<cr>' },
+    { '<leader>ee', '<cmd>NvimTreeToggle<cr>', desc = 'NvimTree Toggle' },
+    { '<leader>e', '<cmd>NvimTreeFocus<cr>', desc = 'NvimTree Focus' },
   },
 }
