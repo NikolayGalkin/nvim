@@ -27,8 +27,9 @@ return {
 
       cmp.setup {
         completion = {
-          completeopt = 'menu,menuone,preview,noselect',
+          completeopt = 'menu,menuone,preview,noinsert',
         },
+
         snippet = {
           -- REQUIRED - you must specify a snippet engine
           expand = function(args)
@@ -40,12 +41,12 @@ return {
           documentation = cmp.config.window.bordered(),
         },
         mapping = cmp.mapping.preset.insert {
-          ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-          ['<C-f>'] = cmp.mapping.scroll_docs(4),
-          ['<C-Space>'] = cmp.mapping.complete(),
-          ['<C-e>'] = cmp.mapping.abort(),
-          ['<CR>'] = cmp.mapping.confirm { select = true }, -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
-          ['<Tab>'] = cmp.mapping(function(fallback)
+          ['<c-b>'] = cmp.mapping.scroll_docs(-4),
+          ['<c-f>'] = cmp.mapping.scroll_docs(4),
+          ['<c-Space>'] = cmp.mapping.complete(),
+          ['<esc>'] = cmp.mapping.abort(),
+          ['<cr>'] = cmp.mapping.confirm { select = true }, -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          ['<tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_next_item()
             elseif luasnip.expand_or_jumpable() then
@@ -55,7 +56,7 @@ return {
             end
           end, { 'i', 's' }),
 
-          ['<S-Tab>'] = cmp.mapping(function(fallback)
+          ['<s-tab>'] = cmp.mapping(function(fallback)
             if cmp.visible() then
               cmp.select_prev_item()
             elseif luasnip.jumpable(-1) then
@@ -67,14 +68,16 @@ return {
         },
         sources = cmp.config.sources {
           { name = 'nvim_lsp' },
-          { name = 'luasnip' }, -- For luasnip users.
+          -- { name = 'luasnip' }, -- For luasnip users.
           { name = 'buffer' }, -- For luasnip users.
           { name = 'path' }, -- For luasnip users.
           { name = 'nvim_lua' },
         },
         -- configure lspkind for vs-code like pictograms in completion menu
         formatting = {
+          fields = { 'kind', 'abbr', 'menu' },
           format = lspkind.cmp_format {
+            mode = 'symbol',
             maxwidth = 50,
             ellipsis_char = '...',
             menu = {

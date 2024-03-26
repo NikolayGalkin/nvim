@@ -50,8 +50,4 @@ return {
     event = 'BufEnter',
     config = true,
   },
-  -- {
-  --   'stevearc/dressing.nvim',
-  --   event = 'VeryLazy',
-  -- },
 }

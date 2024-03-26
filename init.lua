@@ -16,7 +16,7 @@ require 'options'
 require('lazy').setup('plugins', {
   defaults = {
     lazy = true,
-    version = '*', -- enable this to try installing the latest stable versions of plugins
+    -- version = '*', -- enable this to try installing the latest stable versions of plugins
   },
   install = {
     colorscheme = { 'nightfly' },

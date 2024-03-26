@@ -11,13 +11,11 @@ vim.g.loaded_ruby_provider = 0
 
 vim.wo.number = true
 vim.wo.relativenumber = true
+vim.opt.swapfile = false
 
 vim.opt.termguicolors = true
 vim.opt.clipboard:append 'unnamedplus'
--- vim.opt.conceallevel = 2
-vim.opt.scrolloff = 8
+vim.opt.scrolloff = 999
 
 vim.opt.cursorline = true
-vim.opt.swapfile = false
-
 vim.opt.colorcolumn = { 120 }

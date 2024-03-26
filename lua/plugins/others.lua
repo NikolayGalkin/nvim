@@ -1,8 +1,11 @@
 return {
   {
     'folke/twilight.nvim',
-    event = { 'InsertEnter' },
+    event = { 'BufReadPre' },
     opts = {},
+    keys = {
+      { '<leader>tw', '<cmd>Twilight<cr>', desc = 'Twilight' },
+    },
   },
   -- FIX: too many conflicts in mapping. Need to think )
   -- {
