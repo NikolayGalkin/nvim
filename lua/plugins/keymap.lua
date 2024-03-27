@@ -7,7 +7,7 @@ return {
   end,
   opts = {
     window = {
-      winblend = 70,
+      winblend = 0,
     },
   },
   config = function(_, opts)

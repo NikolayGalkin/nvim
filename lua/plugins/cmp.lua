@@ -68,7 +68,7 @@ return {
         },
         sources = cmp.config.sources {
           { name = 'nvim_lsp' },
-          -- { name = 'luasnip' }, -- For luasnip users.
+          { name = 'luasnip' }, -- For luasnip users.
           { name = 'buffer' }, -- For luasnip users.
           { name = 'path' }, -- For luasnip users.
           { name = 'nvim_lua' },
@@ -87,6 +87,12 @@ return {
               nvim_lua = '[lua]',
             },
           },
+        },
+        view = {
+          entries = 'native',
+        },
+        experimental = {
+          ghost_text = true,
         },
       }
     end,
