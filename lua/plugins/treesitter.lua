@@ -8,30 +8,34 @@ return {
       'windwp/nvim-ts-autotag',
       'nvim-treesitter/nvim-treesitter-textobjects',
     },
-    opts = {
-      ensure_installed = {
-        'css',
-        'scss',
-        'gitcommit',
-        'gitignore',
-        'http',
-        'lua',
-        'toml',
-        'markdown',
-        'markdown_inline',
-        'vim',
-        'bash',
-        'regex',
-        'typescript',
-        'javascript',
-        'tsx',
-        'kdl', -- zellij )
-      },
-      hightlight = { enable = true },
-      indent = { enble = true },
-    },
+    opts = function(_, opts)
+      vim.list_extend(opts, {
+        ensure_installed = {
+          'css',
+          'scss',
+          'gitcommit',
+          'gitignore',
+          'http',
+          'lua',
+          'toml',
+          'markdown',
+          'markdown_inline',
+          'vim',
+          'bash',
+          'regex',
+          'typescript',
+          'javascript',
+          'tsx',
+          'jsdoc',
+          'kdl', -- zellij )
+        },
+        hightlight = { enable = true },
+        indent = { enble = true },
+      })
+    end,
     config = function(_, opts)
       require('nvim-treesitter').setup(opts)
+      require('nvim-ts-autotag').setup()
       require('nvim-treesitter.configs').setup {
         autotag = {
           enable = true,
@@ -46,9 +50,9 @@ return {
 
             keymaps = {
               -- You can use the capture groups defined in textobjects.scm
-              ['of'] = '@function.outer',
+              ['af'] = '@function.outer',
               ['if'] = '@function.inner',
-              ['oc'] = '@class.outer',
+              ['ac'] = '@class.outer',
               ['ic'] = '@class.inner',
             },
           },

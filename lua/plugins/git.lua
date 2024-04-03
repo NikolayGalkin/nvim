@@ -16,8 +16,10 @@ return {
     event = { 'BufReadPre', 'BufNewFile' },
     config = function()
       require('gitsigns').setup {}
-      vim.keymap.set('n', '<leader>gp', ':Gitsigns preview_hunk<cr>', {})
-      vim.keymap.set('n', '<leader>gt', ':Gitsigns toggle_current_line_blame<cr>', {})
+      vim.keymap.set('n', '<leader>gp', ':Gitsigns preview_hunk<cr>')
+      vim.keymap.set('n', '<leader>gs', ':Gitsigns stage_hunk<cr>')
+      vim.keymap.set('n', '<leader>gu', ':Gitsigns undo_stage_hunk<cr>')
+      vim.keymap.set('n', '<leader>gt', ':Gitsigns toggle_current_line_blame<cr>')
     end,
   },
   {

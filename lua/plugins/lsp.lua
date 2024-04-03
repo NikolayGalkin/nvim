@@ -22,7 +22,7 @@ return {
     },
     dependencies = {
       'neovim/nvim-lspconfig',
-      'RRethy/vim-illuminate',
+      -- 'RRethy/vim-illuminate',
       'b0o/schemastore.nvim',
       { 'antosha417/nvim-lsp-file-operations', config = true },
       {
@@ -43,6 +43,11 @@ return {
           },
         },
         opts = {
+          diagnostics = {
+            virtual_text = {
+              prefix = 'icons',
+            },
+          },
           ensure_installed = {
             'tsserver',
             'html',
@@ -81,7 +86,20 @@ return {
           marksman = {},
           tailwindcss = {},
           tsserver = {
-            -- detached = false,
+            -- single_file_support = false,
+            -- settings = {
+            --   typescript = {
+            --     inlayHints = {
+            --       includeInlayParameterNameHints = 'literal',
+            --       includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+            --       includeInlayFunctionParameterTypeHints = true,
+            --       includeInlayVariableTypeHints = false,
+            --       includeInlayPropertyDeclarationTypeHints = true,
+            --       includeInlayFunctionLikeReturnTypeHints = true,
+            --       includeInlayEnumMemberValueHints = true,
+            --     },
+            --   },
+            -- },
           },
           emmet_ls = {
             filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },

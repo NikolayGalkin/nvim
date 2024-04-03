@@ -12,14 +12,15 @@ end
 
 vim.opt.rtp:prepend(lazypath)
 
-require 'options'
+vim.g.mapleader = ' '
+require 'keymaps'
 require('lazy').setup('plugins', {
   defaults = {
     lazy = true,
     -- version = '*', -- enable this to try installing the latest stable versions of plugins
   },
   install = {
-    colorscheme = { 'nightfly' },
+    colorscheme = { 'cattpuccin' },
   },
   checker = {
     enabled = true,
@@ -27,5 +28,9 @@ require('lazy').setup('plugins', {
   },
   change_detection = {
     notify = false,
+  },
+  ui = {
+    title = "Don't add many plugins a piece of shit!",
+    border = 'rounded',
   },
 })
