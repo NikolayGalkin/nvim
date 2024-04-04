@@ -1,66 +1,58 @@
 return {
   {
-    'WhoIsSethDaniel/mason-tool-installer.nvim',
+    'williamboman/mason.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    dependencies = {
+      'williamboman/mason-lspconfig.nvim',
+      'WhoIsSethDaniel/mason-tool-installer.nvim',
+    },
     opts = {
-      ensure_installed = {
-        'prettierd',
-        'stylua',
-        'eslint_d',
-        'markdownlint',
-        'selene',
+      ui = {
+        border = 'rounded',
+        icons = {
+          package_installed = '✓',
+          package_pending = '➜',
+          package_uninstalled = '✗',
+        },
       },
     },
-    keys = {
-      { '<leader>mi', '<cmd>MasonToolsUpdate<cr>', desc = 'Mason Tool Update' },
-    },
+    config = function(_, opts)
+      require('mason').setup(opts)
+
+      require('mason-lspconfig').setup {
+        ensure_installed = {
+          'tsserver',
+          'html',
+          'cssls',
+          'jsonls',
+          'yamlls',
+          'tailwindcss',
+          'lua_ls',
+          'emmet_ls',
+          'marksman',
+        },
+      }
+
+      require('mason-tool-installer').setup {
+        ensure_installed = {
+          'prettierd',
+          'stylua',
+          'eslint_d',
+          'markdownlint',
+          'selene',
+        },
+      }
+
+      vim.keymap.set('n', '<leader>mi', '<cmd>MasonToolsUpdate<cr>', { desc = 'Mason Tool Update' })
+    end,
   },
   {
     'junnplus/lsp-setup.nvim',
-    event = {
-      'BufReadPre',
-      'BufNewFile',
-    },
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = {
       'neovim/nvim-lspconfig',
-      -- 'RRethy/vim-illuminate',
       'b0o/schemastore.nvim',
       { 'antosha417/nvim-lsp-file-operations', config = true },
-      {
-        'williamboman/mason-lspconfig.nvim',
-        dependencies = {
-          {
-            'williamboman/mason.nvim',
-            opts = {
-              ui = {
-                border = 'rounded',
-                icons = {
-                  package_installed = '✓',
-                  package_pending = '➜',
-                  package_uninstalled = '✗',
-                },
-              },
-            },
-          },
-        },
-        opts = {
-          diagnostics = {
-            virtual_text = {
-              prefix = 'icons',
-            },
-          },
-          ensure_installed = {
-            'tsserver',
-            'html',
-            'cssls',
-            'jsonls',
-            'yamlls',
-            'tailwindcss',
-            'lua_ls',
-            'emmet_ls',
-            'marksman',
-          },
-        },
-      },
     },
     config = function()
       local signs = { Error = '󰅚 ', Warn = '󰀪 ', Hint = '󰌶 ', Info = ' ' }

@@ -7,10 +7,12 @@ return {
       'nvim-telescope/telescope-ui-select.nvim',
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
+      'folke/todo-comments.nvim',
     },
     config = function()
       local telescope = require 'telescope'
       local actions = require 'telescope.actions'
+      local trouble_telescope = require 'trouble.providers.telescope'
 
       telescope.setup {
         pickers = {
@@ -19,12 +21,13 @@ return {
           },
         },
         defaults = {
-          path_display = { 'truncate ' },
+          path_display = { 'smart' },
           mappings = {
             i = {
-              ['<C-k>'] = actions.move_selection_previous, -- move to prev result
-              ['<C-j>'] = actions.move_selection_next, -- move to next result
-              ['<C-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
+              ['<c-k>'] = actions.move_selection_previous, -- move to prev result
+              ['<c-j>'] = actions.move_selection_next, -- move to next result
+              ['<c-q>'] = actions.send_selected_to_qflist + actions.open_qflist,
+              ['<c-t>'] = trouble_telescope.smart_open_with_trouble,
             },
           },
         },
@@ -44,8 +47,8 @@ return {
         "<cmd>lua require'telescope.builtin'.find_files({ find_command = {'rg', '--files', '--hidden', '-g', '!.git' }})<cr>",
         desc = 'Telescope Find Files',
       },
-      { '<leader>fw', '<cmd>Telescope live_grep<CR>', desc = 'Telescope Find Words' },
-      -- { '<leader>fb', '<cmd>Telescope file_browser<CR>', desc = 'Telescope File browser' },
+      { '<leader>fw', '<cmd>Telescope live_grep<cr>', desc = 'Telescope Find Words' },
+      { '<leader>ft', '<cmd>TodoTelescope<cr>', desc = 'Telescope File browser' },
     },
   },
 }
