@@ -1,8 +1,19 @@
 return {
   {
-    'folke/tokyonight.nvim',
+    'sainnhe/sonokai',
     lazy = false,
     priority = 1000,
+    config = function()
+      vim.g.sonokai_transparent_background = true
+      vim.g.sonokai_enable_italic = true
+      vim.g.sonokai_style = 'andromeda'
+      -- vim.g.sonokai_style = 'maia'
+      vim.cmd.colorscheme 'sonokai'
+    end,
+  },
+  {
+    'folke/tokyonight.nvim',
+    event = 'VeryLazy',
     config = function()
       local bg = '#011628'
       local bg_dark = '#011423'
@@ -16,7 +27,7 @@ return {
 
       require('tokyonight').setup {
         style = 'night',
-        transparent = true,
+        -- transparent = true,
         on_colors = function(colors)
           colors.bg = bg
           colors.bg_dark = bg_dark
@@ -36,44 +47,59 @@ return {
         end,
       }
 
-      vim.cmd.colorscheme 'tokyonight'
+      -- vim.cmd.colorscheme 'tokyonight'
     end,
   },
-  -- {
-  --   'catppuccin/nvim',
-  --   name = 'catppuccin',
-  --   lazy = false,
-  --   -- priority = 1000,
-  --   config = function()
-  --     require('catppuccin').setup {
-  --       transparent_background = false,
-  --       integrations = {
-  --         mini = {
-  --           enabled = true,
-  --           -- indentscope_color = '',
-  --         },
-  --
-  --         native_lsp = {
-  --           enabled = true,
-  --           underlines = {
-  --             errors = { 'undercurl' },
-  --             hints = { 'undercurl' },
-  --             warnings = { 'undercurl' },
-  --             information = { 'undercurl' },
-  --           },
-  --         },
-  --         mason = true,
-  --         symbols_outline = true,
-  --         lsp_trouble = true,
-  --         which_key = true,
-  --         noice = true,
-  --         notify = true,
-  --       },
-  --     }
-  --     vim.cmd.colorscheme 'catppuccin'
-  --     vim.cmd [[highlight Visual cterm=reverse gui=reverse]]
-  --   end,
-  -- },
+  {
+    'catppuccin/nvim',
+    name = 'catppuccin',
+    event = 'VeryLazy',
+    -- priority = 1000,
+    config = function()
+      require('catppuccin').setup {
+        transparent_background = true,
+        integrations = {
+          mini = {
+            enabled = true,
+            indentscope_color = '',
+          },
+
+          native_lsp = {
+            enabled = true,
+            underlines = {
+              errors = { 'undercurl' },
+              hints = { 'undercurl' },
+              warnings = { 'undercurl' },
+              information = { 'undercurl' },
+            },
+          },
+          mason = true,
+          symbols_outline = true,
+          lsp_trouble = true,
+          which_key = true,
+          noice = true,
+          notify = true,
+        },
+      }
+      -- vim.cmd.colorscheme 'catppuccin'
+      vim.cmd [[highlight Visual cterm=reverse gui=reverse]]
+    end,
+  },
+  {
+    'projekt0n/github-nvim-theme',
+    event = 'VeryLazy',
+    config = function()
+      require('github-theme').setup {
+        options = {
+          styles = {
+            comments = 'italic',
+            keywords = 'bold',
+            types = 'italic,bold',
+          },
+        },
+      }
+    end,
+  },
   {
     'akinsho/bufferline.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
@@ -81,6 +107,7 @@ return {
     dependencies = {
       'nvim-tree/nvim-web-devicons',
       'catppuccin/nvim',
+      'echasnovski/mini.bufremove',
     },
     opts = function()
       return {
@@ -97,6 +124,9 @@ return {
             },
           },
           color_icons = true,
+          close_command = function(bufnr)
+            require('mini.bufremove').delete(bufnr, false)
+          end,
           diagnostics_indicator = function(_, _, diagnostics_dict)
             local s = ' '
             for e, n in pairs(diagnostics_dict) do
@@ -117,64 +147,131 @@ return {
     opts = function(_, opts)
       local lazy_status = require 'lazy.status' -- to configure lazy pending updates count
 
-      local colors = {
-        blue = '#65D1FF',
-        green = '#3EFFDC',
-        violet = '#FF61EF',
-        yellow = '#FFDA7B',
-        red = '#FF4A4A',
-        fg = '#c3ccdc',
-        bg = '#112638',
-        inactive_bg = '#2c3043',
+      local clients_lsp = function()
+        local bufnr = vim.api.nvim_get_current_buf()
+
+        local clients = vim.lsp.buf_get_clients(bufnr)
+        if next(clients) == nil then
+          return ''
+        end
+
+        local c = {}
+        for _, client in pairs(clients) do
+          table.insert(c, client.name)
+        end
+        return '  ' .. table.concat(c, '|')
+      end
+
+      local default_icon = '  '
+      local mode_map = {
+        ['NORMAL'] = '󰘳  ',
+        ['O-PENDING'] = '  ',
+        ['INSERT'] = '  ',
+        ['VISUAL'] = '󰒉  ',
+        ['V-BLOCK'] = '󰒉  ',
+        ['V-LINE'] = '󰒉  ',
+        ['V-REPLACE'] = '  ',
+        ['REPLACE'] = '󰛔  ',
+        ['COMMAND'] = '󰘳  ',
+        ['SHELL'] = '  ',
+        ['TERMINAL'] = '  ',
+        ['EX'] = '  ',
+        ['S-BLOCK'] = '  ',
+        ['S-LINE'] = '  ',
+        ['SELECT'] = '  ',
+        ['CONFIRM'] = '  ',
+        ['MORE'] = '  ',
       }
 
-      local theme = {
-        normal = {
-          a = { bg = colors.blue, fg = colors.bg, gui = 'bold' },
-          b = { bg = colors.bg, fg = colors.fg },
-          c = { bg = colors.bg, fg = colors.fg },
-        },
-        insert = {
-          a = { bg = colors.green, fg = colors.bg, gui = 'bold' },
-          b = { bg = colors.bg, fg = colors.fg },
-          c = { bg = colors.bg, fg = colors.fg },
-        },
-        visual = {
-          a = { bg = colors.violet, fg = colors.bg, gui = 'bold' },
-          b = { bg = colors.bg, fg = colors.fg },
-          c = { bg = colors.bg, fg = colors.fg },
-        },
-        command = {
-          a = { bg = colors.yellow, fg = colors.bg, gui = 'bold' },
-          b = { bg = colors.bg, fg = colors.fg },
-          c = { bg = colors.bg, fg = colors.fg },
-        },
-        replace = {
-          a = { bg = colors.red, fg = colors.bg, gui = 'bold' },
-          b = { bg = colors.bg, fg = colors.fg },
-          c = { bg = colors.bg, fg = colors.fg },
-        },
-        inactive = {
-          a = { bg = colors.inactive_bg, fg = colors.semilightgray, gui = 'bold' },
-          b = { bg = colors.inactive_bg, fg = colors.semilightgray },
-          c = { bg = colors.inactive_bg, fg = colors.semilightgray },
-        },
-      }
+      -- local colors = {
+      --   blue = '#65D1FF',
+      --   green = '#3EFFDC',
+      --   violet = '#FF61EF',
+      --   yellow = '#FFDA7B',
+      --   red = '#FF4A4A',
+      --   fg = '#c3ccdc',
+      --   bg = '#112638',
+      --   inactive_bg = '#2c3043',
+      -- }
+
+      -- local theme = {
+      --   normal = {
+      --     a = { bg = colors.blue, fg = colors.bg, gui = 'bold' },
+      --     b = { bg = colors.bg, fg = colors.fg },
+      --     c = { bg = colors.bg, fg = colors.fg },
+      --   },
+      --   insert = {
+      --     a = { bg = colors.green, fg = colors.bg, gui = 'bold' },
+      --     b = { bg = colors.bg, fg = colors.fg },
+      --     c = { bg = colors.bg, fg = colors.fg },
+      --   },
+      --   visual = {
+      --     a = { bg = colors.violet, fg = colors.bg, gui = 'bold' },
+      --     b = { bg = colors.bg, fg = colors.fg },
+      --     c = { bg = colors.bg, fg = colors.fg },
+      --   },
+      --   command = {
+      --     a = { bg = colors.yellow, fg = colors.bg, gui = 'bold' },
+      --     b = { bg = colors.bg, fg = colors.fg },
+      --     c = { bg = colors.bg, fg = colors.fg },
+      --   },
+      --   replace = {
+      --     a = { bg = colors.red, fg = colors.bg, gui = 'bold' },
+      --     b = { bg = colors.bg, fg = colors.fg },
+      --     c = { bg = colors.bg, fg = colors.fg },
+      --   },
+      --   inactive = {
+      --     a = { bg = colors.inactive_bg, fg = colors.semilightgray, gui = 'bold' },
+      --     b = { bg = colors.inactive_bg, fg = colors.semilightgray },
+      --     c = { bg = colors.inactive_bg, fg = colors.semilightgray },
+      --   },
+      -- }
 
       return vim.tbl_extend('force', opts, {
-        options = {
-          theme = theme,
-        },
+        -- options = {
+        --   theme = theme,
+        -- },
         sections = {
+          lualine_a = {
+            {
+              'mode',
+              fmt = function(s)
+                local icon = mode_map[s] or default_icon
+                -- local icon = mode_map[s] or default_icon
+                return icon .. s
+              end,
+            },
+          },
+          lualine_b = {
+            {
+              'diagnostics',
+              symbols = { error = ' ', warn = ' ', info = ' ', hint = '󰌵 ' },
+              colored = true, -- Displays diagnostics status in color if set to true.
+              update_in_insert = false, -- Update diagnostics in insert mode.
+              always_visible = false, -- Show diagnostics even if there are none.
+            },
+            'branch',
+            'diff',
+            'diagnostics',
+          },
           lualine_x = {
             {
               lazy_status.updates,
               cond = lazy_status.has_updates,
               color = { fg = '#ff9e64' },
             },
+            {
+              require('noice').api.status.mode.get,
+              cond = require('noice').api.status.mode.has,
+              color = { link = 'lualine_b_diff_added_insert' },
+            },
             { 'encoding' },
             { 'fileformat' },
             { 'filetype' },
+          },
+          lualine_y = {
+            { clients_lsp },
+            'progress',
           },
         },
       })
@@ -206,6 +303,12 @@ return {
         lsp_doc_border = true, -- add a border to hover docs and signature help
       },
     },
+    config = function(_, opts)
+      require('noice').setup(opts)
+      require('notify').setup {
+        background_colour = '#000000',
+      }
+    end,
   },
   {
     'hedyhli/outline.nvim',

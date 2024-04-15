@@ -40,6 +40,7 @@ return {
           'eslint_d',
           'markdownlint',
           'selene',
+          'yamllint',
         },
       }
 
@@ -74,7 +75,15 @@ return {
         },
         servers = {
           html = {},
-          cssls = {},
+          cssls = {
+            settings = {
+              css = {
+                lint = {
+                  unknownAtRules = 'ignore',
+                },
+              },
+            },
+          },
           marksman = {},
           tailwindcss = {},
           tsserver = {

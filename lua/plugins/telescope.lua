@@ -7,7 +7,7 @@ return {
       'nvim-telescope/telescope-ui-select.nvim',
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
-      'folke/todo-comments.nvim',
+      { 'folke/todo-comments.nvim', opts = {} },
     },
     config = function()
       local telescope = require 'telescope'

@@ -43,13 +43,36 @@ return {
           documentation = cmp.config.window.bordered(),
         },
         mapping = cmp.mapping.preset.insert {
-          ['<tab>'] = cmp.mapping.select_next_item(),
-          ['<s-tab>'] = cmp.mapping.select_prev_item(),
           ['<c-b>'] = cmp.mapping.scroll_docs(-4),
           ['<c-f>'] = cmp.mapping.scroll_docs(4),
           ['<c-Space>'] = cmp.mapping.complete(),
           ['<esc>'] = cmp.mapping.abort(),
           ['<cr>'] = cmp.mapping.confirm { select = false }, -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+          -- ['<tab>'] = cmp.mapping.select_next_item(),
+          -- ['<s-tab>'] = cmp.mapping.select_prev_item(),
+          ['<tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_next_item()
+            elseif luasnip.expand_or_locally_jumpable() then
+              luasnip.expand_or_jump()
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
+          ['<s-tab>'] = cmp.mapping(function(fallback)
+            if cmp.visible() then
+              cmp.select_prev_item()
+            elseif luasnip.expand_or_locally_jumpable(-1) then
+              luasnip.jump(-1)
+            else
+              fallback()
+            end
+          end, { 'i', 's' }),
+        },
+        view = {
+          entries = {
+            follow_cursor = true,
+          },
         },
         sources = cmp.config.sources {
           { name = 'nvim_lsp' },

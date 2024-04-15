@@ -20,6 +20,8 @@ return {
       },
       ensure_installed = {
         'json',
+        'json5',
+        'jsonc',
         'yaml',
         'toml',
 
