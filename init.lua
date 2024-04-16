@@ -19,9 +19,9 @@ require('lazy').setup('plugins', {
     lazy = true,
     -- version = '*', -- enable this to try installing the latest stable versions of plugins
   },
-  install = {
-    colorscheme = { 'tokyonight' },
-  },
+  -- install = {
+  --   colorscheme = { 'tokyonight' },
+  -- },
   checker = {
     enabled = true,
     notify = false,
@@ -32,5 +32,19 @@ require('lazy').setup('plugins', {
   ui = {
     title = "Don't add many plugins a piece of shit!",
     border = 'rounded',
+  },
+  performance = {
+    rtp = {
+      -- Stuff I don't use.
+      disabled_plugins = {
+        'gzip',
+        'netrwPlugin',
+        'rplugin',
+        'tarPlugin',
+        'tohtml',
+        'tutor',
+        'zipPlugin',
+      },
+    },
   },
 })

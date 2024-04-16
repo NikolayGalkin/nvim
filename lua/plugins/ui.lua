@@ -1,106 +1,5 @@
 return {
   {
-    'sainnhe/sonokai',
-    lazy = false,
-    priority = 1000,
-    config = function()
-      vim.g.sonokai_transparent_background = true
-      vim.g.sonokai_enable_italic = true
-      vim.g.sonokai_style = 'andromeda'
-      -- vim.g.sonokai_style = 'maia'
-      vim.cmd.colorscheme 'sonokai'
-    end,
-  },
-  {
-    'folke/tokyonight.nvim',
-    event = 'VeryLazy',
-    config = function()
-      local bg = '#011628'
-      local bg_dark = '#011423'
-      local bg_highlight = '#143652'
-      local bg_search = '#0A64AC'
-      local bg_visual = '#275378'
-      local fg = '#CBE0F0'
-      local fg_dark = '#B4D0E9'
-      local fg_gutter = '#627E97'
-      local border = '#547998'
-
-      require('tokyonight').setup {
-        style = 'night',
-        -- transparent = true,
-        on_colors = function(colors)
-          colors.bg = bg
-          colors.bg_dark = bg_dark
-          colors.bg_float = bg_dark
-          colors.bg_highlight = bg_highlight
-          colors.bg_popup = bg_dark
-          colors.bg_search = bg_search
-          colors.bg_sidebar = bg_dark
-          colors.bg_statusline = bg_dark
-          colors.bg_visual = bg_visual
-          colors.border = border
-          colors.fg = fg
-          colors.fg_dark = fg_dark
-          colors.fg_float = fg
-          colors.fg_gutter = fg_gutter
-          colors.fg_sidebar = fg_dark
-        end,
-      }
-
-      -- vim.cmd.colorscheme 'tokyonight'
-    end,
-  },
-  {
-    'catppuccin/nvim',
-    name = 'catppuccin',
-    event = 'VeryLazy',
-    -- priority = 1000,
-    config = function()
-      require('catppuccin').setup {
-        transparent_background = true,
-        integrations = {
-          mini = {
-            enabled = true,
-            indentscope_color = '',
-          },
-
-          native_lsp = {
-            enabled = true,
-            underlines = {
-              errors = { 'undercurl' },
-              hints = { 'undercurl' },
-              warnings = { 'undercurl' },
-              information = { 'undercurl' },
-            },
-          },
-          mason = true,
-          symbols_outline = true,
-          lsp_trouble = true,
-          which_key = true,
-          noice = true,
-          notify = true,
-        },
-      }
-      -- vim.cmd.colorscheme 'catppuccin'
-      vim.cmd [[highlight Visual cterm=reverse gui=reverse]]
-    end,
-  },
-  {
-    'projekt0n/github-nvim-theme',
-    event = 'VeryLazy',
-    config = function()
-      require('github-theme').setup {
-        options = {
-          styles = {
-            comments = 'italic',
-            keywords = 'bold',
-            types = 'italic,bold',
-          },
-        },
-      }
-    end,
-  },
-  {
     'akinsho/bufferline.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     version = '*',
@@ -135,14 +34,14 @@ return {
             end
             return s
           end,
-          highlights = require('catppuccin.groups.integrations.bufferline').get(),
+          -- highlights = require('catppuccin.groups.integrations.bufferline').get(),
         },
       }
     end,
   },
   {
     'nvim-lualine/lualine.nvim',
-    event = 'VeryLazy',
+    event = { 'BufReadPre', 'BufNewFile' },
     dependencies = { 'nvim-tree/nvim-web-devicons' },
     opts = function(_, opts)
       local lazy_status = require 'lazy.status' -- to configure lazy pending updates count
@@ -231,6 +130,9 @@ return {
         -- options = {
         --   theme = theme,
         -- },
+        options = {
+          theme = 'ayu',
+        },
         sections = {
           lualine_a = {
             {
@@ -303,12 +205,12 @@ return {
         lsp_doc_border = true, -- add a border to hover docs and signature help
       },
     },
-    config = function(_, opts)
-      require('noice').setup(opts)
-      require('notify').setup {
-        background_colour = '#000000',
-      }
-    end,
+    -- config = function(_, opts)
+    --   require('noice').setup(opts)
+    --   require('notify').setup {
+    --     background_colour = '#000000',
+    --   }
+    -- end,
   },
   {
     'hedyhli/outline.nvim',
