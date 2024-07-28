@@ -25,20 +25,46 @@ return {
       symbol = '',
     },
   },
-  {
-    'echasnovski/mini.hipatterns',
-    event = { 'BufReadPre', 'BufNewFile' },
-    opts = {},
-  },
+  -- {
+  --   'echasnovski/mini.hipatterns',
+  --   event = { 'BufReadPre', 'BufNewFile' },
+  --   dependencies = {
+  --     { 'echasnovski/mini.extra' },
+  --   },
+  --   config = function()
+  --     local hp = require 'mini.hipatterns'
+  --     local hw = require('mini.extra').gen_highlighter.words
+  --
+  --     hp.setup {
+  --       highlighters = {
+  --         todo = hw({ 'TODO', 'Todo', 'todo' }, 'MiniHipatternsTodo'),
+  --         fixme = hw({ 'FIXME', 'FIX', 'fix', 'Fix' }, 'MiniHipatternsFixme'),
+  --       },
+  --       hex_color = hp.gen_highlighter.hex_color(),
+  --     }
+  --   end,
+  -- },
   {
     'echasnovski/mini.pairs',
     event = 'InsertEnter',
     config = true,
   },
+  -- Can't comment tsx
   {
     'echasnovski/mini.comment',
     event = { 'BufReadPre', 'BufNewFile' },
-    config = true,
+    dependencies = {
+      'JoosepAlviste/nvim-ts-context-commentstring',
+    },
+    opts = function()
+      return {
+        options = {
+          custom_commentstring = function()
+            return require('ts_context_commentstring').calculate_commentstring() or vim.bo.commentstring
+          end,
+        },
+      }
+    end,
   },
   {
     'echasnovski/mini.jump2d',
@@ -78,5 +104,10 @@ return {
         desc = 'Delete current buffer',
       },
     },
+  },
+  {
+    'echasnovski/mini.surround',
+    event = 'InsertEnter',
+    config = true,
   },
 }

@@ -7,12 +7,12 @@ return {
       'nvim-telescope/telescope-ui-select.nvim',
       'nvim-lua/plenary.nvim',
       'nvim-tree/nvim-web-devicons',
-      { 'folke/todo-comments.nvim', opts = {} },
+      -- { 'folke/todo-comments.nvim', opts = {} },
     },
     config = function()
       local telescope = require 'telescope'
       local actions = require 'telescope.actions'
-      local trouble_telescope = require 'trouble.providers.telescope'
+      local trouble_telescope = require 'trouble.sources.telescope'
 
       telescope.setup {
         pickers = {

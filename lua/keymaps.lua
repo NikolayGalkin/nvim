@@ -1,40 +1,28 @@
-vim.g.mapleader = ' '
-
 local map = vim.keymap.set
+local function get_opts(desc, expr)
+  return { noremap = true, silent = true, desc = desc, expr = expr or false }
+end
 
-map('n', '<c-d>', '<c-d>zz')
-map('n', '<c-u>', '<c-u>zz')
+map('n', '<c-d>', '<c-d>zz', get_opts 'Scroll down half a page')
+map('n', '<c-u>', '<c-u>zz', get_opts 'Scroll up half a page')
 -- map('n', 'j', 'jzz')
 -- map('n', 'k', 'kzz')
 
+-- Better J/K
+map('n', 'j', [[(v:count > 1 ? "m'" . v:count : '') . 'gj']], get_opts('Jump list relative line jump', true))
+map('n', 'k', [[(v:count > 1 ? "m'" . v:count : '') . 'gk']], get_opts('Jump list relative line jump', true))
 -- better up/down
--- map({ 'n', 'x' }, 'j', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
--- map({ 'n', 'x' }, '<Down>', "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true })
--- map({ 'n', 'x' }, 'k', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
--- map({ 'n', 'x' }, '<Up>', "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
-
 -- buffers
-map('n', '<S-h>', '<cmd>bprevious<cr>', { desc = 'Prev Buffer' })
-map('n', '<S-l>', '<cmd>bnext<cr>', { desc = 'Next Buffer' })
+map('n', '<S-h>', '<cmd>bprevious<cr>', get_opts 'Previous Bufer')
+map('n', '<S-l>', '<cmd>bnext<cr>', get_opts 'Next Buffer')
 
 -- Clear search with <esc>
-map({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>', { desc = 'Escape and Clear hlsearch' })
+map({ 'i', 'n' }, '<esc>', '<cmd>noh<cr><esc>', get_opts 'Escape from search')
 
 -- lazy
-map('n', '<leader>l', '<cmd>Lazy<cr>', { desc = 'Lazy' })
+map('n', '<leader>l', '<cmd>Lazy<cr>', get_opts 'Lazy')
 
--- tabs
-map('n', '<leader><tab>l', '<cmd>tablast<cr>', { desc = 'Last Tab' })
-map('n', '<leader><tab>f', '<cmd>tabfirst<cr>', { desc = 'First Tab' })
-map('n', '<leader><tab><tab>', '<cmd>tabnew<cr>', { desc = 'New Tab' })
-map('n', '<leader><tab>]', '<cmd>tabnext<cr>', { desc = 'Next Tab' })
-map('n', '<leader><tab>d', '<cmd>tabclose<cr>', { desc = 'Close Tab' })
-map('n', '<leader><tab>[', '<cmd>tabprevious<cr>', { desc = 'Previous Tab' })
+map('i', 'jj', '<esc>', get_opts 'Better Esc')
 
--- close buffer (file)
--- map('n', '<leader>x', '<cmd>bdelete<cr>', { desc = 'Close File' })
-
-map('i', 'jj', '<esc>')
-
-map('n', '<leader>w', '<cmd>w<cr>', { desc = 'Save File' })
-map('n', '<leader>q', '<cmd>qa!<cr>', { desc = 'Quit Nvim' })
+map('n', '<leader>w', '<cmd>w<cr>', get_opts 'Save File')
+map('n', '<leader>q', '<cmd>qa!<cr>', get_opts 'Quit Nvim')

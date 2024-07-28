@@ -31,4 +31,9 @@ return {
       { '<leader>gi', '<cmd>Gitignore<cr>', desc = 'Generate Gitignore file' },
     },
   },
+  {
+    'sindrets/diffview.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    opts = {},
+  },
 }

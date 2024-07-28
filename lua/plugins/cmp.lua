@@ -6,7 +6,7 @@ return {
       {
         'L3MON4D3/LuaSnip',
         dependencies = 'rafamadriz/friendly-snippets',
-        version = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        -- version = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
         build = 'make install_jsregexp',
         -- opts = { history = true, updateevents = 'TextChanged,TextChangedI' },
       },

@@ -3,6 +3,7 @@ return {
     'akinsho/bufferline.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     version = '*',
+    after = 'catppuccin',
     dependencies = {
       'nvim-tree/nvim-web-devicons',
       'catppuccin/nvim',
@@ -34,7 +35,7 @@ return {
             end
             return s
           end,
-          -- highlights = require('catppuccin.groups.integrations.bufferline').get(),
+          highlights = require('catppuccin.groups.integrations.bufferline').get(),
         },
       }
     end,
@@ -49,7 +50,7 @@ return {
       local clients_lsp = function()
         local bufnr = vim.api.nvim_get_current_buf()
 
-        local clients = vim.lsp.buf_get_clients(bufnr)
+        local clients = vim.lsp.get_clients { bufnr = bufnr }
         if next(clients) == nil then
           return ''
         end
@@ -131,7 +132,7 @@ return {
         --   theme = theme,
         -- },
         options = {
-          theme = 'ayu',
+          theme = 'catppuccin',
         },
         sections = {
           lualine_a = {
@@ -191,9 +192,9 @@ return {
       lsp = {
         -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
         override = {
-          ['vim.lsp.util.convert_input_to_markdown_lines'] = false,
-          ['vim.lsp.util.stylize_markdown'] = false,
-          ['cmp.entry.get_documentation'] = false, -- requires hrsh7th/nvim-cmp
+          ['vim.lsp.util.convert_input_to_markdown_lines'] = true,
+          ['vim.lsp.util.stylize_markdown'] = true,
+          ['cmp.entry.get_documentation'] = true, -- requires hrsh7th/nvim-cmp
         },
       },
       -- -- you can enable a preset for easier configuration
@@ -213,6 +214,32 @@ return {
     -- end,
   },
   {
+    'folke/todo-comments.nvim',
+    event = 'VeryLazy',
+    dependencies = {
+      'nvim-lua/plenary.nvim',
+    },
+    opts = {},
+    keys = { -- Example mapping to toggle outline
+      { '<leader>td', '<cmd>TodoTrouble<CR>', desc = 'Todo Trouble' },
+    },
+  },
+  {
+    'folke/trouble.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = true,
+    dependencies = {
+      'nvim-tree/nvim-web-devicons',
+      {
+        'RRethy/vim-illuminate',
+        config = function()
+          require('illuminate').configure()
+        end,
+      },
+    },
+    cmd = { 'Trouble' },
+  },
+  {
     'hedyhli/outline.nvim',
     cmd = { 'Outline', 'OutlineOpen' },
     opts = {},
@@ -220,22 +247,9 @@ return {
       { '<leader>a', '<cmd>Outline<CR>', desc = 'Toggle outline' },
     },
   },
-  -- {
-  --   'shellRaining/hlchunk.nvim',
-  --   event = { 'BufReadPre', 'BufNewFile' },
-  --   opts = {
-  --     chunk = {
-  --       notify = false,
-  --       chars = {
-  --         horizontal_line = '─',
-  --         vertical_line = '│',
-  --         left_top = '┌',
-  --         left_bottom = '└',
-  --         right_arrow = '─',
-  --       },
-  --       style = '#00ffff',
-  --     },
-  --     blank = { enable = false },
-  --   },
-  -- },
+  {
+    'tris203/precognition.nvim',
+    event = { 'BufReadPre', 'BufNewFile' },
+    config = true,
+  },
 }

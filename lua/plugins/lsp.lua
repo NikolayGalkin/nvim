@@ -2,24 +2,23 @@ return {
   {
     'williamboman/mason.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
+    cmd = { 'Mason' },
     dependencies = {
       'williamboman/mason-lspconfig.nvim',
       'WhoIsSethDaniel/mason-tool-installer.nvim',
     },
     opts = {
-      ui = {
-        border = 'rounded',
-        icons = {
-          package_installed = '✓',
-          package_pending = '➜',
-          package_uninstalled = '✗',
+      mason = {
+        ui = {
+          border = 'rounded',
+          icons = {
+            package_installed = '✓',
+            package_pending = '➜',
+            package_uninstalled = '✗',
+          },
         },
       },
-    },
-    config = function(_, opts)
-      require('mason').setup(opts)
-
-      require('mason-lspconfig').setup {
+      lspconfig = {
         ensure_installed = {
           'tsserver',
           'html',
@@ -31,9 +30,8 @@ return {
           'emmet_ls',
           'marksman',
         },
-      }
-
-      require('mason-tool-installer').setup {
+      },
+      mti = {
         ensure_installed = {
           'prettierd',
           'stylua',
@@ -41,8 +39,14 @@ return {
           'markdownlint',
           'selene',
           'yamllint',
+          'xmlformatter',
         },
-      }
+      },
+    },
+    config = function(_, opts)
+      require('mason').setup(opts.mason)
+      require('mason-lspconfig').setup(opts.lspconfig)
+      require('mason-tool-installer').setup(opts.mti)
 
       vim.keymap.set('n', '<leader>mi', '<cmd>MasonToolsUpdate<cr>', { desc = 'Mason Tool Update' })
     end,
@@ -70,8 +74,7 @@ return {
         end,
 
         inlay_hints = {
-          enabled = false,
-          highlight = 'Comment',
+          enabled = true,
         },
         servers = {
           html = {},
@@ -87,23 +90,31 @@ return {
           marksman = {},
           tailwindcss = {},
           tsserver = {
-            -- single_file_support = false,
-            -- settings = {
-            --   typescript = {
-            --     inlayHints = {
-            --       includeInlayParameterNameHints = 'literal',
-            --       includeInlayParameterNameHintsWhenArgumentMatchesName = false,
-            --       includeInlayFunctionParameterTypeHints = true,
-            --       includeInlayVariableTypeHints = false,
-            --       includeInlayPropertyDeclarationTypeHints = true,
-            --       includeInlayFunctionLikeReturnTypeHints = true,
-            --       includeInlayEnumMemberValueHints = true,
-            --     },
-            --   },
-            -- },
+            single_file_support = false,
+            settings = {
+              typescript = {
+                inlayHints = {
+                  includeInlayParameterNameHints = 'all',
+                  includeInlayParameterNameHintsWhenArgumentMatchesName = true,
+                  includeInlayFunctionParameterTypeHints = true,
+                  includeInlayFunctionLikeReturnTypeHints = true,
+                  includeInlayVariableTypeHints = false,
+                  includeInlayPropertyDeclarationTypeHints = true,
+                  includeInlayEnumMemberValueHints = true,
+                },
+              },
+            },
           },
           emmet_ls = {
-            filetypes = { 'html', 'typescriptreact', 'javascriptreact', 'css', 'sass', 'scss', 'less' },
+            filetypes = {
+              'html',
+              'typescriptreact',
+              'javascriptreact',
+              'css',
+              'sass',
+              'scss',
+              'less',
+            },
           },
           jsonls = {
             settings = {
@@ -127,6 +138,10 @@ return {
           lua_ls = {
             settings = {
               Lua = {
+                hint = {
+                  enable = true,
+                  setType = true,
+                },
                 diagnostics = {
                   globals = { 'vim' },
                 },

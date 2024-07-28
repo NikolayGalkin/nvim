@@ -3,6 +3,7 @@ return {
     'akinsho/toggleterm.nvim',
     opts = {
       hide_numbers = true,
+      -- shade_terminals = false,
       -- these two options will force the terminal to always be in insert mode
       start_in_insert = true,
       persist_mode = true,
@@ -25,6 +26,7 @@ return {
     'mistricky/codesnap.nvim',
     event = { 'BufReadPre', 'BufNewFile' },
     build = 'make',
+    enabled = false,
     opts = {
       mac_window_bar = true,
       title = 'CodeSnap.nvim',
