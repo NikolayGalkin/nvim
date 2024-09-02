@@ -5,16 +5,9 @@ return {
     -- 'lewis6991/gitsigns.nvim', -- OPTIONAL: for git status
     "nvim-tree/nvim-web-devicons", -- OPTIONAL: for file icons
   },
-  opts = {
-    auto_hide = true,
-    sidebar_filetypes = {
-      NvimTree = true,
-    },
-  },
   config = function()
-    local barbar = require("barbar")
-    barbar.setup({
-      auto_hide = true,
+    require("barbar").setup({
+      auto_hide = false,
       sidebar_filetypes = {
         NvimTree = true,
       },
