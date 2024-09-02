@@ -26,11 +26,11 @@ return {
     require("mason").setup({})
 
     require("mason-lspconfig").setup({
-      ensure_installed = { "lua_ls", "basedpyright", "ruff_lsp" },
+      ensure_installed = { "lua_ls", "basedpyright", "ruff_lsp", "tsserver", "vtsls" },
     })
 
     require("mason-tool-installer").setup({
-      ensure_installed = { "luacheck", "stylua", "ruff", "mypy" },
+      ensure_installed = { "luacheck", "stylua", "ruff", "mypy", "prettierd", "eslint_d" },
     })
 
     local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
@@ -43,6 +43,16 @@ return {
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
     lsp.basedpyright.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
+
+    lsp.tsserver.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
+
+    lsp.vtsls.setup({
       on_attach = on_attach,
       capabilities = capabilities,
     })
