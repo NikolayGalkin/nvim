@@ -26,7 +26,7 @@ return {
     require("mason").setup({})
 
     require("mason-lspconfig").setup({
-      ensure_installed = { "lua_ls", "basedpyright", "ruff_lsp", "tsserver", "vtsls" },
+      ensure_installed = { "lua_ls", "basedpyright", "ruff_lsp", "tsserver", "vtsls", "jsonls" },
     })
 
     require("mason-tool-installer").setup({
@@ -47,6 +47,11 @@ return {
       capabilities = capabilities,
     })
 
+    lsp.ruff_lsp.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
+
     lsp.tsserver.setup({
       on_attach = on_attach,
       capabilities = capabilities,
@@ -57,7 +62,7 @@ return {
       capabilities = capabilities,
     })
 
-    lsp.ruff_lsp.setup({
+    lsp.jsonls.setup({
       on_attach = on_attach,
       capabilities = capabilities,
     })
