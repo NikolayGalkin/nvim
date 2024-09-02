@@ -9,6 +9,9 @@ local on_attach = function(_, bufnr)
   vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, bufopts)
   vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, bufopts)
   vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+  vim.keymap.set("n", "<leader>ih", function()
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+  end, bufopts)
 end
 
 return {
@@ -23,7 +26,7 @@ return {
     require("mason").setup({})
 
     require("mason-lspconfig").setup({
-      ensure_installed = { "lua_ls", "basedpyright" },
+      ensure_installed = { "lua_ls", "basedpyright", "ruff_lsp" },
     })
 
     require("mason-tool-installer").setup({
@@ -34,6 +37,11 @@ return {
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
 
     lsp.basedpyright.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
+
+    lsp.ruff_lsp.setup({
       on_attach = on_attach,
       capabilities = capabilities,
     })
