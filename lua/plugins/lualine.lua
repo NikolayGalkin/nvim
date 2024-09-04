@@ -4,7 +4,7 @@ return {
   dependencies = {
     "nvim-tree/nvim-web-devicons",
   },
-  config = function(_, opts)
+  opts = function()
     local clients_lsp = function()
       local bufnr = vim.api.nvim_get_current_buf()
 
@@ -20,7 +20,10 @@ return {
 
       return "\u{f085} " .. table.concat(c, "|")
     end
-    table.insert(opts.sections.lualine_b, clients_lsp)
-    require("lualine").setup(opts)
+    return {
+      sections = {
+        lualine_b = { "branch", "diff", "diagnostics", clients_lsp },
+      },
+    }
   end,
 }
