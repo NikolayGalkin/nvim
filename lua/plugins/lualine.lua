@@ -18,11 +18,11 @@ return {
         table.insert(c, client.name)
       end
 
-      return "\u{f085} " .. table.concat(c, "|")
+      return "\u{f085} " .. table.concat(c, " & ")
     end
     return {
       sections = {
-        lualine_b = { "branch", "diff", "diagnostics", clients_lsp },
+        lualine_x = { "encoding", "fileformat", "filetype", clients_lsp },
       },
     }
   end,
