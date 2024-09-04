@@ -1,14 +1,18 @@
 return {
   "nvim-telescope/telescope.nvim",
-  dependencies = { "nvim-lua/plenary.nvim", "nvim-telescope/telescope-ui-select.nvim" },
+  dependencies = {
+    "nvim-lua/plenary.nvim",
+    "nvim-telescope/telescope-ui-select.nvim",
+    { "nvim-telescope/telescope-fzf-native.nvim", build = "make" },
+  },
   cmd = "Telescope",
   opts = function()
     local actions = require("telescope.actions")
     return {
       pickers = {
-        find_files = {
-          hidden = true,
-        },
+        -- find_files = {
+        --   hidden = true,
+        -- },
         colorscheme = { enable_preview = true },
       },
       defaults = {
@@ -33,6 +37,7 @@ return {
 
     telescope.setup(opts)
     telescope.load_extension("ui-select")
+    telescope.load_extension("fzf")
   end,
 
   keys = {
