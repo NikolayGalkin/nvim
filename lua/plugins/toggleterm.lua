@@ -7,6 +7,7 @@ return {
     },
   },
   keys = {
-    { "<leader>tt", ":ToggleTerm<cr>", desc = "ToggleTerm" },
+    { "<leader>tt", ":ToggleTerm direction=horizontal<cr>", desc = "ToggleTerm" },
+    { "<leader>tf", ":ToggleTerm direction=float<cr>", desc = "ToggleTerm" },
   },
 }
