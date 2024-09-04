@@ -43,5 +43,6 @@ return {
   keys = {
     { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "Treesitter Find Files" },
     { "<leader>fw", "<cmd>Telescope live_grep<cr>", desc = "Treesitter Find Word" },
+    { "<leader>f*", "<cmd>Telescope grep_string<cr>", desc = "Treesitter Find Word under Cursor" },
   },
 }
