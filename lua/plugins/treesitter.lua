@@ -5,6 +5,7 @@ return {
   build = ":TSUpdate",
   config = function(_, _)
     require("nvim-treesitter.configs").setup({
+      ensure_installed = { "html" },
       auto_install = true,
       highlight = {
         enable = true,
