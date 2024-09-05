@@ -24,8 +24,17 @@ return {
   },
   init = function()
     vim.diagnostic.config({
-      float = { border = "rounded" },
+      float = { source = "if_many", border = "rounded" },
     })
+    vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
+    vim.lsp.handlers["textDocument/signatureHelp"] =
+      vim.lsp.with(vim.lsp.handlers.signature_help, { border = "rounded" })
+
+    local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
+    for type, icon in pairs(signs) do
+      local hl = "DiagnosticSign" .. type
+      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
+    end
   end,
   config = function()
     require("mason").setup({})
@@ -37,12 +46,6 @@ return {
     require("mason-tool-installer").setup({
       ensure_installed = { "luacheck", "stylua", "ruff", "mypy", "prettierd", "eslint_d" },
     })
-
-    local signs = { Error = "󰅚 ", Warn = "󰀪 ", Hint = "󰌶 ", Info = " " }
-    for type, icon in pairs(signs) do
-      local hl = "DiagnosticSign" .. type
-      vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
-    end
 
     local lsp = require("lspconfig")
     local capabilities = require("cmp_nvim_lsp").default_capabilities()
