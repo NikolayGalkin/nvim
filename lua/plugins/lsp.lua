@@ -22,6 +22,11 @@ return {
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     "williamboman/mason-lspconfig.nvim",
   },
+  init = function()
+    vim.diagnostic.config({
+      float = { border = "rounded" },
+    })
+  end,
   config = function()
     require("mason").setup({})
 
