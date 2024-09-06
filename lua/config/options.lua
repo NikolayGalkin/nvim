@@ -74,3 +74,6 @@ else
   opt.foldmethod = "indent"
   opt.foldtext = "v:lua.require'lazyvim.util'.ui.foldtext()"
 end
+
+opt.winblend = 0
+opt.pumblend = 0

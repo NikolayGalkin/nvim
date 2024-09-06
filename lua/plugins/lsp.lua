@@ -18,7 +18,15 @@ return {
   "neovim/nvim-lspconfig",
   event = "BufReadPre",
   dependencies = {
-    { "williamboman/mason.nvim", cmd = "Mason" },
+    {
+      "williamboman/mason.nvim",
+      cmd = "Mason",
+      opts = {
+        ui = {
+          border = "rounded",
+        },
+      },
+    },
     "WhoIsSethDaniel/mason-tool-installer.nvim",
     "williamboman/mason-lspconfig.nvim",
   },
