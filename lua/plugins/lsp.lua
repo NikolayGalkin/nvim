@@ -48,11 +48,11 @@ return {
     require("mason").setup({})
 
     require("mason-lspconfig").setup({
-      ensure_installed = { "lua_ls", "basedpyright", "ruff_lsp", "tsserver", "vtsls", "jsonls" },
+      ensure_installed = { "lua_ls", "basedpyright", "ruff", "ts_ls", "vtsls", "jsonls", "nil_ls" },
     })
 
     require("mason-tool-installer").setup({
-      ensure_installed = { "luacheck", "stylua", "ruff", "mypy", "prettierd", "eslint_d" },
+      ensure_installed = { "luacheck", "stylua", "ruff", "mypy", "prettierd", "eslint_d", "nixpkgs-fmt" },
     })
 
     local lsp = require("lspconfig")
@@ -63,7 +63,12 @@ return {
       capabilities = capabilities,
     })
 
-    lsp.ruff_lsp.setup({
+    lsp.nil_ls.setup({
+      on_attach = on_attach,
+      capabilities = capabilities,
+    })
+
+    lsp.ruff.setup({
       on_attach = on_attach,
       capabilities = capabilities,
     })

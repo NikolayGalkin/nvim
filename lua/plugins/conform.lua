@@ -10,6 +10,7 @@ return {
       typescriptreact = { "prettierd" },
       javascriptreact = { "prettierd" },
       html = { "prettierd" },
+      nix = { "nixpkgs_fmt" },
     },
     format_on_save = {
       -- These options will be passed to conform.format()
