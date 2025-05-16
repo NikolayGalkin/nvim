@@ -1,6 +1,6 @@
 return {
   "gbprod/yanky.nvim",
-  event = { "BufReadPost" },
+  -- event = { "BufReadPost" },
   opts = {
     ring = { history_length = 20 },
     highlight = { timer = 250 },
