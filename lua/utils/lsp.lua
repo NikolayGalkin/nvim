@@ -4,8 +4,8 @@ local M = {}
 function M.get_default_keymaps()
   return {
     { keys = "<leader>ca", func = vim.lsp.buf.code_action, desc = "Code Actions" },
-    { keys = "<leader>.", func = vim.lsp.buf.code_action, desc = "Code Actions" },
     { keys = "<leader>cr", func = vim.lsp.buf.rename, desc = "Code Rename" },
+    -- { keys = "<leader>.", func = vim.lsp.buf.code_action, desc = "Code Actions" },
     -- { keys = "<leader>cf", func = vim.lsp.buf.format, desc = "Code Format" },
     -- { keys = "<leader>k", func = vim.lsp.buf.hover, desc = "Documentation", has = "hoverProvider" },
     -- { keys = "K", func = vim.lsp.buf.hover, desc = "Documentation", has = "hoverProvider" },

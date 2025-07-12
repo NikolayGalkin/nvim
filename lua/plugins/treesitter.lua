@@ -1,7 +1,9 @@
 return {
   "nvim-treesitter/nvim-treesitter",
   event = { "BufReadPost", "BufNewFile" },
-  -- tag = "v0.9.2",
+  dependencies = {
+    "nvim-treesitter/nvim-treesitter-textobjects",
+  },
   build = ":TSUpdate",
   init = function()
     require("vim.treesitter.query").add_predicate("is-mise?", function(_, _, bufnr, _)
@@ -15,10 +17,10 @@ return {
       sync_install = false,
       ignore_install = {},
       modules = {},
-      highlight = { enable = true },
+      highlight = { enable = true, use_languagetree = true },
       indent = { enable = true },
       auto_install = true,
-      ensure_installed = { "html", "regex", "vim", "vimdoc" },
+      ensure_installed = { "html", "xml", "regex", "vim", "vimdoc" },
 
       incremental_selection = {
         enable = true,
@@ -27,6 +29,15 @@ return {
           node_incremental = "<C-space>",
           scope_incremental = false,
           node_decremental = "<bs>",
+        },
+      },
+      textobjects = {
+        move = {
+          enable = true,
+          goto_next_start = { ["]f"] = "@function.outer", ["]c"] = "@class.outer", ["]a"] = "@parameter.inner" },
+          goto_next_end = { ["]F"] = "@function.outer", ["]C"] = "@class.outer", ["]A"] = "@parameter.inner" },
+          goto_previous_start = { ["[f"] = "@function.outer", ["[c"] = "@class.outer", ["[a"] = "@parameter.inner" },
+          goto_previous_end = { ["[F"] = "@function.outer", ["[C"] = "@class.outer", ["[A"] = "@parameter.inner" },
         },
       },
     })

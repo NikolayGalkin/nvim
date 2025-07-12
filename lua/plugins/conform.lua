@@ -12,8 +12,11 @@ return {
       javascript = { "biome", "prettier", stop_after_first = true },
       typescriptreact = { "biome", "prettier", stop_after_first = true },
       javascriptreact = { "biome", "prettier", stop_after_first = true },
+      markdown = { "prettier" },
       html = { "prettier" },
       rust = { "rustfmt" },
+      toml = { "taplo" },
+      sql = { "sqlfluff" },
       -- nix = { "nixpkgs_fmt" },
     },
 
