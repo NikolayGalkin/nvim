@@ -1,0 +1,22 @@
+require('nvim-treesitter.config').setup({
+  ensure_installed = {
+    'rust',
+    'lua',
+    'html',
+    'json',
+    'yaml',
+    'toml',
+    'markdown_inline',
+    'markdown',
+    'css',
+    'javascript',
+    'latex',
+    'scss',
+    'svelte',
+    'tsx',
+    'typst',
+    'vue',
+  },
+  highlight = { enable = true },
+  indent = { enable = true },
+})
