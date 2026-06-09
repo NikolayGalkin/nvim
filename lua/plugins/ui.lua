@@ -1,9 +1,14 @@
 require('tiny-cmdline').setup()
 
-require('markview').setup({
-  preview = {
-    icon_provider = 'mini', -- "mini" or "devicons"
-  },
+-- require('markview').setup({
+--   preview = {
+--     icon_provider = 'mini', -- "mini" or "devicons"
+--   },
+-- })
+
+require('render-markdown').setup({
+  render_modes = { 'n', 't' },
+  completions = { lsp = { enabled = true } },
 })
 
 require('snacks').setup({

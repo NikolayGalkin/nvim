@@ -7,6 +7,7 @@ require('mini.basics').setup({
     windows = true,
   },
 })
+vim.o.winblend = 0
 require('mini.files').setup()
 require('mini.ai').setup()
 -- require("mini.animate").setup()
@@ -43,3 +44,6 @@ local MiniIcons = require('mini.icons')
 MiniIcons.setup()
 MiniIcons.tweak_lsp_kind()
 MiniIcons.mock_nvim_web_devicons()
+
+local MiniInput = require('mini.input')
+MiniInput.setup()

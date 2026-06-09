@@ -21,6 +21,7 @@ require('catppuccin').setup({
   integrations = {
     mini = { enabled = true },
     snacks = true,
+    render_markdown = true,
     native_lsp = {
       enabled = true,
       virtual_text = {

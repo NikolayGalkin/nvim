@@ -1,8 +1,8 @@
 local conform = require('conform')
 
 local function has_file(names)
-  return function(ctx)
-    return vim.fs.root(ctx.filename, names) ~= nil
+  return function(_, ctx)
+    return vim.fs.root(ctx.dirname, names) ~= nil
   end
 end
 
@@ -23,7 +23,7 @@ conform.setup({
     css = { 'prettier' },
     html = { 'prettier' },
     yaml = { 'prettier' },
-    markdown = { 'prettier' },
+    markdown = { 'prettier_markdown' },
     toml = { 'taplo' },
   },
   formatters = {
@@ -45,6 +45,12 @@ conform.setup({
         'prettier.config.cts',
         'prettier.config.mts',
       }),
+    },
+
+    prettier_markdown = {
+      command = 'prettier',
+      args = { '--parser', 'markdown' },
+      stdin = true,
     },
 
     black = {

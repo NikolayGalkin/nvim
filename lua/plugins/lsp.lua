@@ -4,7 +4,7 @@ vim.diagnostic.config({
   update_in_insert = false,
 })
 
-vim.lsp.enable({ 'lua_ls', 'taplo' })
+vim.lsp.enable({ 'lua_ls', 'taplo', 'marksman', 'rust_analyzer' })
 
 vim.api.nvim_create_autocmd('LspAttach', {
   callback = function(ev)
